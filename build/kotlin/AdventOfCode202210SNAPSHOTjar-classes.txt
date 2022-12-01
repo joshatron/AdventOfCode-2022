@@ -1,1 +1,0 @@
-/home/jleger/Programs/AdventOfCode2022/build/classes/kotlin/main/Day01Elf.class:/home/jleger/Programs/AdventOfCode2022/build/classes/kotlin/main/MainKt$readDayInput$1.class:/home/jleger/Programs/AdventOfCode2022/build/classes/kotlin/main/MainKt.class

@@ -21,4 +21,6 @@ fun main() {
     println("Day 08, Puzzle 02: ${day08Puzzle02()}")
     println("Day 09, Puzzle 01: ${day09Puzzle01()}")
     println("Day 09, Puzzle 02: ${day09Puzzle02()}")
+    println("Day 10, Puzzle 01: ${day10Puzzle01()}")
+    println("Day 10, Puzzle 02: ${day10Puzzle02()}")
 }

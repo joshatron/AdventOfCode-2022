@@ -1,4 +1,4 @@
-package io.joshatron.aoc2022.day
+package io.joshatron.aoc2022.days.day10
 
 import io.joshatron.aoc2022.readDayInput
 
@@ -34,18 +34,18 @@ private fun isRecordCycle(cycle: Int): Boolean {
     return cycle == 20 || cycle == 60 || cycle == 100 || cycle == 140 || cycle == 180 || cycle == 220
 }
 
-private fun parseDay10Instructions(input: List<String>): List<Day10Instruction> {
-    return input.map(fun (line): Day10Instruction {
+private fun parseDay10Instructions(input: List<String>): List<Instruction> {
+    return input.map(fun (line): Instruction {
         val parts = line.split(" ")
         return if (parts.size == 1) {
-            Day10Instruction(InstructionType.NOOP, 0)
+            Instruction(InstructionType.NOOP, 0)
         } else {
-            Day10Instruction(InstructionType.ADDX, parts[1].toInt())
+            Instruction(InstructionType.ADDX, parts[1].toInt())
         }
     })
 }
 
-private data class Day10Instruction(val type: InstructionType, val value: Int)
+private data class Instruction(val type: InstructionType, val value: Int)
 
 private enum class InstructionType {
     NOOP,

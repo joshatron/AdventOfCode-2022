@@ -1,6 +1,25 @@
 package io.joshatron.aoc2022
 
-import io.joshatron.aoc2022.day.*
+import io.joshatron.aoc2022.days.day01.day01Puzzle01
+import io.joshatron.aoc2022.days.day01.day01Puzzle02
+import io.joshatron.aoc2022.days.day02.day02Puzzle01
+import io.joshatron.aoc2022.days.day02.day02Puzzle02
+import io.joshatron.aoc2022.days.day03.day03Puzzle01
+import io.joshatron.aoc2022.days.day03.day03Puzzle02
+import io.joshatron.aoc2022.days.day04.day04Puzzle01
+import io.joshatron.aoc2022.days.day04.day04Puzzle02
+import io.joshatron.aoc2022.days.day05.day05Puzzle01
+import io.joshatron.aoc2022.days.day05.day05Puzzle02
+import io.joshatron.aoc2022.days.day06.day06Puzzle01
+import io.joshatron.aoc2022.days.day06.day06Puzzle02
+import io.joshatron.aoc2022.days.day07.day07Puzzle01
+import io.joshatron.aoc2022.days.day07.day07Puzzle02
+import io.joshatron.aoc2022.days.day08.day08Puzzle01
+import io.joshatron.aoc2022.days.day08.day08Puzzle02
+import io.joshatron.aoc2022.days.day09.day09Puzzle01
+import io.joshatron.aoc2022.days.day09.day09Puzzle02
+import io.joshatron.aoc2022.days.day10.day10Puzzle01
+import io.joshatron.aoc2022.days.day10.day10Puzzle02
 import io.joshatron.aoc2022.days.day11.day11Puzzle01
 import io.joshatron.aoc2022.days.day11.day11Puzzle02
 

@@ -1,4 +1,4 @@
-package io.joshatron.aoc2022.day
+package io.joshatron.aoc2022.days.day04
 
 import io.joshatron.aoc2022.readDayInput
 
@@ -10,7 +10,7 @@ fun day04Puzzle01(): String {
 }
 
 private fun parseRangePairs(input: List<String>): List<RangePair> {
-    return input.map(fun(line: String):RangePair {
+    return input.map(fun(line: String): RangePair {
         val ranges = line.split(",")
         val range1 = ranges[0].split("-")
         val range2 = ranges[1].split("-")

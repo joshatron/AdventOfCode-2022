@@ -1,4 +1,4 @@
-package io.joshatron.aoc2022.day
+package io.joshatron.aoc2022.days.day05
 
 import io.joshatron.aoc2022.readDayInput
 

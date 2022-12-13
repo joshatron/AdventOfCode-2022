@@ -1,29 +1,18 @@
 package io.joshatron.aoc2022
 
-import io.joshatron.aoc2022.days.day01.day01Puzzle01
-import io.joshatron.aoc2022.days.day01.day01Puzzle02
-import io.joshatron.aoc2022.days.day02.day02Puzzle01
-import io.joshatron.aoc2022.days.day02.day02Puzzle02
-import io.joshatron.aoc2022.days.day03.day03Puzzle01
-import io.joshatron.aoc2022.days.day03.day03Puzzle02
-import io.joshatron.aoc2022.days.day04.day04Puzzle01
-import io.joshatron.aoc2022.days.day04.day04Puzzle02
-import io.joshatron.aoc2022.days.day05.day05Puzzle01
-import io.joshatron.aoc2022.days.day05.day05Puzzle02
-import io.joshatron.aoc2022.days.day06.day06Puzzle01
-import io.joshatron.aoc2022.days.day06.day06Puzzle02
-import io.joshatron.aoc2022.days.day07.day07Puzzle01
-import io.joshatron.aoc2022.days.day07.day07Puzzle02
-import io.joshatron.aoc2022.days.day08.day08Puzzle01
-import io.joshatron.aoc2022.days.day08.day08Puzzle02
-import io.joshatron.aoc2022.days.day09.day09Puzzle01
-import io.joshatron.aoc2022.days.day09.day09Puzzle02
-import io.joshatron.aoc2022.days.day10.day10Puzzle01
-import io.joshatron.aoc2022.days.day10.day10Puzzle02
-import io.joshatron.aoc2022.days.day11.day11Puzzle01
-import io.joshatron.aoc2022.days.day11.day11Puzzle02
-import io.joshatron.aoc2022.days.day12.day12Puzzle01
-import io.joshatron.aoc2022.days.day12.day12Puzzle02
+import io.joshatron.aoc2022.days.day01.*
+import io.joshatron.aoc2022.days.day02.*
+import io.joshatron.aoc2022.days.day03.*
+import io.joshatron.aoc2022.days.day04.*
+import io.joshatron.aoc2022.days.day05.*
+import io.joshatron.aoc2022.days.day06.*
+import io.joshatron.aoc2022.days.day07.*
+import io.joshatron.aoc2022.days.day08.*
+import io.joshatron.aoc2022.days.day09.*
+import io.joshatron.aoc2022.days.day10.*
+import io.joshatron.aoc2022.days.day11.*
+import io.joshatron.aoc2022.days.day12.*
+import io.joshatron.aoc2022.days.day13.*
 
 fun main() {
     println("Day 01, Puzzle 01: ${day01Puzzle01()}")
@@ -50,4 +39,6 @@ fun main() {
     println("Day 11, Puzzle 02: ${day11Puzzle02()}")
     println("Day 12, Puzzle 01: ${day12Puzzle01()}")
     println("Day 12, Puzzle 02: ${day12Puzzle02()}")
+    println("Day 13, Puzzle 01: ${day13Puzzle01()}")
+    println("Day 13, Puzzle 02: ${day13Puzzle02()}")
 }

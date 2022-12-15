@@ -1,84 +1,42 @@
 package io.joshatron.aoc2022.days.day12
 
 import io.joshatron.aoc2022.readDayInput
-import java.util.PriorityQueue
-import kotlin.math.abs
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
 import kotlin.streams.toList
 
 fun day12Puzzle01(): String {
     val elevationMap = parseElevationMap(readDayInput(12))
-    val navigation = navigateFromStartToEnd(elevationMap)
-    return navigation.size.toString()
+    return navigateBfsUp(elevationMap).toString()
 }
 
-private fun navigateFromStartToEnd(elevationMap: ElevationMap): List<Coordinate> {
+
+private fun navigateBfsUp(elevationMap: ElevationMap): Int {
     val startCoordinate = elevationMap.findStart()
     val endCoordinate = elevationMap.findEnd()
 
-    val aStarComparer: Comparator<AStarCoordinate> = compareBy { it.f }
-
-    val openList: PriorityQueue<AStarCoordinate> = PriorityQueue(aStarComparer)
-    val closedList: PriorityQueue<AStarCoordinate> = PriorityQueue(aStarComparer)
-    openList.add(AStarCoordinate(startCoordinate, 0, 0, null))
+    val openList: Queue<BFSCoordinate> = LinkedList()
+    val closedList: MutableSet<Coordinate> = HashSet()
+    openList.add(BFSCoordinate(startCoordinate, 0))
 
     while (openList.isNotEmpty()) {
-        val q = openList.remove()
-        //println("(${q.coordinate.x}, ${q.coordinate.y}) f: ${q.f}, open: ${openList.size}, closed: ${closedList.size}")
-
-        val children = elevationMap.possibleMovesUp(q.coordinate).map { AStarCoordinate(it, q.g + 1, determineH(it, elevationMap.elevationAt(it), endCoordinate), q) }
-        for (child in children) {
-            if (child.coordinate == endCoordinate) {
-                return unpackPath(child)
-            }
-            var addToOpenList = true
-            for (c in openList) {
-                if (child.coordinate == c.coordinate && c.f <= child.f) {
-                    addToOpenList = false
-                    break
-                }
-                if (c.f > child.f) {
-                    break
-                }
-            }
-            for (c in closedList) {
-                if (child.coordinate == c.coordinate && c.f <= child.f) {
-                    addToOpenList = false
-                    break
-                }
-                if (c.f > child.f) {
-                    break
-                }
-            }
-            if (addToOpenList) {
-                openList.add(child)
+        val nextCoord = openList.remove()
+        if (nextCoord.coordinate == endCoordinate) {
+            return nextCoord.steps
+        }
+        closedList.add(nextCoord.coordinate)
+        for (possible in elevationMap.possibleMovesUp(nextCoord.coordinate)) {
+            if (!closedList.contains(possible) && !openList.any { it.coordinate == possible }) {
+                openList.add(BFSCoordinate(possible, nextCoord.steps + 1))
             }
         }
-        closedList.add(q)
     }
 
-    return ArrayList()
+    return 0
 }
 
-private fun unpackPath(finalCoord: AStarCoordinate): List<Coordinate> {
-    val path: MutableList<Coordinate> = ArrayList()
-
-    var currentCoord = finalCoord
-    while(currentCoord.parent != null) {
-        path.add(currentCoord.coordinate)
-        currentCoord = currentCoord.parent!!
-    }
-
-    return path.reversed()
-}
-
-private fun determineH(coord: Coordinate, elevation: Int, endCoord: Coordinate): Int {
-    //return (27 - elevation) + abs(coord.x - endCoord.x) + abs(coord.y - endCoord.y)
-    return abs(coord.x - endCoord.x) + abs(coord.y - endCoord.y)
-}
-
-private data class AStarCoordinate(val coordinate: Coordinate, val g: Int, val h: Int, val parent: AStarCoordinate?) {
-    val f = g + h
-}
+private data class BFSCoordinate(val coordinate: Coordinate, val steps: Int)
 
 private fun parseElevationMap(input: List<String>): ElevationMap {
     return ElevationMap(input.map { line -> line.chars()
@@ -163,52 +121,28 @@ private data class Coordinate(val x: Int, val y: Int)
 
 fun day12Puzzle02(): String {
     val elevationMap = parseElevationMap(readDayInput(12))
-    val navigation = navigateFromEndToA(elevationMap)
-    return navigation.size.toString()
+    return navigateBfsDown(elevationMap).toString()
 }
 
-private fun navigateFromEndToA(elevationMap: ElevationMap): List<Coordinate> {
+private fun navigateBfsDown(elevationMap: ElevationMap): Int {
     val startCoordinate = elevationMap.findEnd()
 
-    val aStarComparer: Comparator<AStarCoordinate> = compareBy { it.f }
-
-    val openList: PriorityQueue<AStarCoordinate> = PriorityQueue(aStarComparer)
-    val closedList: PriorityQueue<AStarCoordinate> = PriorityQueue(aStarComparer)
-    openList.add(AStarCoordinate(startCoordinate, 0, 0, null))
+    val openList: Queue<BFSCoordinate> = LinkedList()
+    val closedList: MutableSet<Coordinate> = HashSet()
+    openList.add(BFSCoordinate(startCoordinate, 0))
 
     while (openList.isNotEmpty()) {
-        val q = openList.remove()
-
-        val children = elevationMap.possibleMovesDown(q.coordinate).map { AStarCoordinate(it, q.g + 1, 0, q) }
-        for (child in children) {
-            if (elevationMap.elevationAt(child.coordinate) == 1) {
-                return unpackPath(child)
-            }
-            var addToOpenList = true
-            for (c in openList) {
-                if (child.coordinate == c.coordinate && c.f <= child.f) {
-                    addToOpenList = false
-                    break
-                }
-                if (c.f > child.f) {
-                    break
-                }
-            }
-            for (c in closedList) {
-                if (child.coordinate == c.coordinate && c.f <= child.f) {
-                    addToOpenList = false
-                    break
-                }
-                if (c.f > child.f) {
-                    break
-                }
-            }
-            if (addToOpenList) {
-                openList.add(child)
+        val nextCoord = openList.remove()
+        if (elevationMap.elevationAt(nextCoord.coordinate) == 1) {
+            return nextCoord.steps
+        }
+        closedList.add(nextCoord.coordinate)
+        for (possible in elevationMap.possibleMovesDown(nextCoord.coordinate)) {
+            if (!closedList.contains(possible) && !openList.any { it.coordinate == possible }) {
+                openList.add(BFSCoordinate(possible, nextCoord.steps + 1))
             }
         }
-        closedList.add(q)
     }
 
-    return ArrayList()
+    return 0
 }

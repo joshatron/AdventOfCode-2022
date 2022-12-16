@@ -14,6 +14,10 @@ private fun findOptimalFlowRate(rooms: Rooms): Int {
     return findOptimalFlowRate(rooms, "AA", HashSet(), 0, 30)
 }
 
+private data class OptimalCacheEntry(val current: String, val started: Set<String>, val currentTime: Int)
+
+private val optimalCache: MutableMap<OptimalCacheEntry, Int> = HashMap()
+
 private fun findOptimalFlowRate(rooms: Rooms, current: String, started: Set<String>, total: Int, currentTime: Int): Int {
     if (started.size == rooms.roomsWithFlowRate.size) {
         return total
@@ -21,6 +25,10 @@ private fun findOptimalFlowRate(rooms: Rooms, current: String, started: Set<Stri
     val currentOptimal = ((30 - currentTime) / 30.0) * rooms.optimalFlowRate
     if (total * 4 < currentOptimal) {
         return total
+    }
+    val entry = OptimalCacheEntry(current, started, currentTime)
+    if (optimalCache.contains(entry)) {
+        return optimalCache[entry]!!
     }
 
     var max = total
@@ -43,16 +51,23 @@ private fun findOptimalFlowRate(rooms: Rooms, current: String, started: Set<Stri
         }
     }
 
+    optimalCache[entry] = max
     return max
 }
 
+private var distanceCache: MutableMap<String, Int> = HashMap()
 private fun distanceBetweenRooms(rooms: Rooms, start: String, end: String): Int {
+    if (distanceCache[start + end] != null) {
+        return distanceCache[start + end]!!
+    }
     val visited: MutableSet<String> = HashSet()
     val openList: Queue<RoomDistance> = LinkedList()
     openList.add(RoomDistance(start, 0))
     while (openList.isNotEmpty()) {
         val next = openList.remove()
         if (next.room == end) {
+            distanceCache[start + end] = next.distance
+            distanceCache[end + start] = next.distance
             return next.distance
         } else {
             visited.add(next.room)
@@ -99,6 +114,10 @@ private fun findOptimalFlowRatePuzzle02(rooms: Rooms): Int {
     return findOptimalFlowRatePuzzle02(rooms, "AA", "AA", HashSet(), 0, 26, 26)
 }
 
+private data class OptimalCacheEntryPuzzle02(val currentPerson: String, val currentElephant: String, val started: Set<String>, val currentTimePerson: Int, val currentTimeElephant: Int)
+
+private val optimalCachePuzzle02: MutableMap<OptimalCacheEntryPuzzle02, Int> = HashMap()
+
 private fun findOptimalFlowRatePuzzle02(rooms: Rooms, currentPerson: String, currentElephant: String, started: Set<String>, total: Int, currentTimePerson: Int, currentTimeElephant: Int): Int {
     if (started.size == rooms.roomsWithFlowRate.size) {
         return total
@@ -106,6 +125,10 @@ private fun findOptimalFlowRatePuzzle02(rooms: Rooms, currentPerson: String, cur
     val currentOptimal = ((26 - min(currentTimeElephant, currentTimePerson)) / 26.0) * rooms.optimalFlowRate
     if (total * 3 < currentOptimal) {
         return total
+    }
+    val entry = OptimalCacheEntryPuzzle02(currentPerson, currentElephant, started, currentTimePerson, currentTimeElephant)
+    if (optimalCachePuzzle02.contains(entry)) {
+        return optimalCachePuzzle02[entry]!!
     }
 
     var max = total
@@ -151,5 +174,6 @@ private fun findOptimalFlowRatePuzzle02(rooms: Rooms, currentPerson: String, cur
         }
     }
 
+    optimalCachePuzzle02[entry] = max
     return max
 }

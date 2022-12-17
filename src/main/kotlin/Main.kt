@@ -16,6 +16,7 @@ import io.joshatron.aoc2022.days.day13.*
 import io.joshatron.aoc2022.days.day14.*
 import io.joshatron.aoc2022.days.day15.*
 import io.joshatron.aoc2022.days.day16.*
+import io.joshatron.aoc2022.days.day17.*
 
 fun main() {
     println("Day 01, Puzzle 01: ${day01Puzzle01()}")
@@ -50,4 +51,6 @@ fun main() {
     println("Day 15, Puzzle 02: ${day15Puzzle02()}")
     println("Day 16, Puzzle 01: ${day16Puzzle01()}")
     println("Day 16, Puzzle 02: ${day16Puzzle02()}")
+    println("Day 17, Puzzle 01: ${day17Puzzle01()}")
+    println("Day 17, Puzzle 02: ${day17Puzzle02()}")
 }
